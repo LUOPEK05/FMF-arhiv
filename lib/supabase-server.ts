@@ -20,7 +20,7 @@ export async function createClient() {
             );
           } catch {
             // Metoda setAll je bila poklicana iz Server Componente.
-            // To opozorilo lahko varno prezreš, če uporabljaš middleware.
+            // To opozorilo lahko varno prezreš.
           }
         },
       },
