@@ -9,15 +9,28 @@ export default function LoginPage() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
 
+  // Dinamično določi osnovni URL glede na okolje
+  const getURL = () => {
+    let url =
+      process.env.NEXT_PUBLIC_SITE_URL ?? // Določi v .env ali Vercelu
+      process.env.NEXT_PUBLIC_VERCEL_URL ?? // Samodejno dodeli Vercel
+      "http://localhost:3000/";
+
+    // Zagotovi https:// in zaključno poševnico
+    url = url.startsWith("http") ? url : `https://${url}`;
+    url = url.endsWith("/") ? url : `${url}/`;
+    return url;
+  };
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
 
-    // Tip: restrict to your faculty's email domain, e.g. require
-    // email.endsWith("@student.fmf.uni-lj.si") before calling this.
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${location.origin}/` },
+      options: {
+        emailRedirectTo: `${getURL()}auth/callback`,
+      },
     });
 
     if (error) setError(error.message);
