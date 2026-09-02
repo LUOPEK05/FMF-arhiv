@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         paper: "#F7F6F2",
         ink: "#1C1E1B",
-        chalkboard: "#1F2A24",
+        chalkboard: "#052e3a",
         chalkboardDark: "#15181A",
         chalk: "#E9E6DC",
       },
