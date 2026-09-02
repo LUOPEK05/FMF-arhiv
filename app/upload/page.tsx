@@ -133,7 +133,7 @@ export default function UploadPage() {
     const { data: publicUrlData } = supabase.storage.from("documents").getPublicUrl(path);
 
     // 2. insert row (goes in as 'pending' until moderated)
-    const { error: insertError } = await supabase.from("documents").insert({
+    const { error: insertError } = await (supabase.from("documents") as any).insert({
       subject_id: subjectId,
       professor_id: professorId || null,
       category,
