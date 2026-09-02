@@ -113,10 +113,10 @@ export default function FilterBar({
   }, [majorId, level, year, subjectId, category, professorId, search]);
 
   const selectClass =
-    "border rounded-md px-3 py-2 text-sm bg-white disabled:bg-slate-100 disabled:text-slate-400";
+    "border border-ink/15 dark:border-chalk/20 rounded-md px-3 py-2 text-sm bg-white dark:bg-chalkboard dark:text-chalk w-full disabled:bg-ink/5 dark:disabled:bg-chalk/5 disabled:text-ink/30 dark:disabled:text-chalk/30";
 
   return (
-    <div className="flex flex-wrap gap-3 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
       <select
         className={selectClass}
         value={majorId ?? ""}
@@ -203,7 +203,7 @@ export default function FilterBar({
       <input
         type="text"
         placeholder="Iskanje po naslovu..."
-        className="border rounded-md px-3 py-2 text-sm flex-1 min-w-[180px]"
+        className="border border-ink/15 dark:border-chalk/20 rounded-md px-3 py-2 text-sm bg-white dark:bg-chalkboard dark:text-chalk w-full sm:col-span-2 lg:col-span-3"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

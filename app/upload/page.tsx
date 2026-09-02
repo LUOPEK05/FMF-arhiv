@@ -60,7 +60,6 @@ export default function UploadPage() {
       });
   }, []);
 
-  // reset level/year/subject when major changes
   useEffect(() => {
     setLevel("");
     setYear("");
@@ -68,13 +67,11 @@ export default function UploadPage() {
     setSubjects([]);
   }, [majorId]);
 
-  // reset year/subject when level changes
   useEffect(() => {
     setYear("");
     setSubjectId("");
   }, [level]);
 
-  // load subjects once major + level + year are all chosen
   useEffect(() => {
     setSubjectId("");
     if (!majorId || !level || !year) return setSubjects([]);
@@ -118,7 +115,6 @@ export default function UploadPage() {
 
     setStatus("uploading");
 
-    // 1. upload file to storage
     const path = `${user.id}/${Date.now()}_${file.name}`;
     const { error: uploadError } = await supabase.storage
       .from("documents")
@@ -132,7 +128,6 @@ export default function UploadPage() {
 
     const { data: publicUrlData } = supabase.storage.from("documents").getPublicUrl(path);
 
-    // 2. insert row (goes in as 'pending' until moderated)
     const { error: insertError } = await (supabase.from("documents") as any).insert({
       subject_id: subjectId,
       professor_id: professorId || null,
@@ -158,7 +153,7 @@ export default function UploadPage() {
     return (
       <div className="max-w-md mx-auto text-center py-16">
         <h1 className="text-xl font-bold mb-2">Hvala za prispevek! 🎉</h1>
-        <p className="text-slate-500 text-sm">
+        <p className="text-ink/60 dark:text-chalk/60 text-sm">
           Tvoje gradivo čaka na pregled in bo kmalu vidno vsem.
         </p>
       </div>
@@ -166,7 +161,7 @@ export default function UploadPage() {
   }
 
   const selectClass =
-    "border rounded-md px-3 py-2 text-sm w-full bg-white disabled:bg-slate-100 disabled:text-slate-400";
+    "border border-ink/15 dark:border-chalk/20 rounded-md px-3 py-2 text-sm w-full bg-white dark:bg-chalkboard dark:text-chalk disabled:bg-ink/5 dark:disabled:bg-chalk/5 disabled:text-ink/30 dark:disabled:text-chalk/30";
 
   const availableYears = LEVELS.find((l) => l.value === level)?.years ?? [];
 
@@ -312,12 +307,12 @@ export default function UploadPage() {
           />
         </div>
 
-        {errorMsg && <p className="text-sm text-red-600">{errorMsg}</p>}
+        {errorMsg && <p className="text-sm text-red-600 dark:text-red-400">{errorMsg}</p>}
 
         <button
           type="submit"
           disabled={status === "uploading"}
-          className="w-full bg-slate-900 text-white rounded-md py-2 text-sm font-medium disabled:opacity-50"
+          className="w-full bg-ink text-paper dark:bg-chalk dark:text-chalkboardDark rounded-md py-2 text-sm font-medium disabled:opacity-50"
         >
           {status === "uploading" ? "Nalagam..." : "Naloži"}
         </button>

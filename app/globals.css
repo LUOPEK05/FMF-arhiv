@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
-  @apply bg-slate-50 text-slate-900;
+  @apply bg-paper text-ink transition-colors duration-200;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  min-width: 0;
+}
+
+html.dark body {
+  @apply bg-chalkboardDark text-chalk;
 }

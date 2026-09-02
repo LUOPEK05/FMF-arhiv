@@ -31,6 +31,8 @@ export interface Subject {
   semester: number | null;
   level: StudyLevel;
   created_at: string;
+  // joined field (populated client-side via nested select())
+  major?: Major;
 }
 
 export interface Professor {

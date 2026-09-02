@@ -25,7 +25,7 @@ export default function HomePage() {
 
     let query = supabase
       .from("documents")
-      .select("*, subject:subjects(*), professor:professors(*)")
+      .select("*, subject:subjects(*, major:majors(*)), professor:professors(*)")
       .eq("status", "approved")
       .order("created_at", { ascending: false });
 
@@ -54,15 +54,17 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-1">Gradivo FMF</h1>
-      <p className="text-slate-500 text-sm mb-6">
-        Izpiti, kolokviji, vaje in literatura — vse na enem mestu.
-      </p>
+      <div className="mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-2">Gradivo FMF</h1>
+        <p className="text-ink/60 dark:text-chalk/60 text-sm">
+          Izpiti, kolokviji, vaje in literatura — vse na enem mestu.
+        </p>
+      </div>
 
       <FilterBar onChange={setFilters} />
 
       {loading ? (
-        <p className="text-sm text-slate-400">Nalaganje...</p>
+        <p className="text-sm text-ink/40 dark:text-chalk/40 py-8 text-center">Nalaganje...</p>
       ) : (
         <DocumentList documents={documents} />
       )}
